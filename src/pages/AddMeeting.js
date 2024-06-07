@@ -27,10 +27,13 @@ function AddMeetings() {
       link: linkInput.current.value,
       date: dateInput.current.value,
     };
-    fetch("https://todo-react-a3274-default-rtdb.firebaseio.com/meet.json", {
-      method: "post",
-      body: JSON.stringify(tempmeeting),
-    })
+    fetch(
+      "https://meeting-application-cd694-default-rtdb.firebaseio.com/meeting-application.json",
+      {
+        method: "post",
+        body: JSON.stringify(tempmeeting),
+      }
+    )
       .then(() => {
         setLoadingStatus(false);
         setShowSuccessMessage(true);

@@ -1,30 +1,42 @@
 import "../assets/css/App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MeetingCard from "../components/MeetingCard";
-// import Home2 from "../assets/img/Img3.jpg";
 import { Link } from "react-router-dom";
+
 function Home() {
   const [meetings, setMeetings] = useState([]);
-  fetch("https://todo-react-a3274-default-rtdb.firebaseio.com/meet.json")
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log(data);
-      let tempMeeting = []; // To store data in Array of Objects.
-      for (const key in data) {
-        // console.log(key);
-        let meeting = {
-          id: key,
-          ...data[key],
-        };
-        tempMeeting.push(meeting);
-      }
-      // console.log(tempMeeting);
-      setMeetings(tempMeeting);
-    });
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    fetch(
+      "https://meeting-application-cd694-default-rtdb.firebaseio.com/meeting-application.json"
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // console.log(data);
+        let tempMeeting = []; // To store data in Array of Objects.
+        for (const key in data) {
+          let meeting = {
+            id: key,
+            ...data[key],
+          };
+          tempMeeting.push(meeting);
+        }
+        setMeetings(tempMeeting);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setError(error.message);
+      });
+  }, []);
+
   return (
     <div className="page">
       <div className="hero">
-        {/* <img src={Home2} alt="Not Found" /> */}
         <h1 className="title">
           Organize your all Live
           <span className="highlight"> meetings in one place</span>
@@ -36,6 +48,7 @@ function Home() {
         </div>
       </div>
       <div className="meetings">
+        {error && <p className="error">Error: {error}</p>}
         {meetings
           .filter((meeting) => {
             let today = new Date();
@@ -55,6 +68,7 @@ function Home() {
             let fdate = date.toLocaleDateString("en-us", options);
             return (
               <MeetingCard
+                key={meeting.id}
                 title={meeting.title}
                 img={meeting.img}
                 date={fdate}

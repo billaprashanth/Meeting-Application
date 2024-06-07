@@ -1,25 +1,29 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MeetingCard from "../components/MeetingCard";
 import "../assets/css/App.css";
+
 function UpcomingMeeting() {
   const [meetings, setMeetings] = useState([]);
-  fetch("https://todo-react-a3274-default-rtdb.firebaseio.com/meet.json")
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log(data);
-      let tempMeeting = []; // To store data in Array of Objects.
-      for (const key in data) {
-        // console.log(key);
-        let meeting = {
-          id: key,
-          ...data[key],
-        };
-        tempMeeting.push(meeting);
-      }
-      // console.log(tempMeeting);
-      setMeetings(tempMeeting);
-    });
+
+  useEffect(() => {
+    fetch(
+      "https://meeting-application-cd694-default-rtdb.firebaseio.com/meeting-application.json"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        let tempMeeting = []; // To store data in Array of Objects.
+        for (const key in data) {
+          let meeting = {
+            id: key,
+            ...data[key],
+          };
+          tempMeeting.push(meeting);
+        }
+        setMeetings(tempMeeting);
+      });
+  }, []);
+
   return (
     <div className="Meetingpage">
       <h1 className="heading">Upcoming Meetings</h1>
@@ -41,6 +45,7 @@ function UpcomingMeeting() {
             let fdate = date.toLocaleDateString("en-us", options);
             return (
               <MeetingCard
+                key={meeting.id}
                 title={meeting.title}
                 img={meeting.img}
                 date={fdate}

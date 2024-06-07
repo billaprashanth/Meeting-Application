@@ -4,7 +4,9 @@ import MeetingCard from "../components/MeetingCard";
 import "../assets/css/App.css";
 function PastMeetings() {
   const [meetings, setMeetings] = useState([]);
-  fetch("https://todo-react-a3274-default-rtdb.firebaseio.com/meet.json")
+  fetch(
+    "https://meeting-application-cd694-default-rtdb.firebaseio.com/meeting-application.json"
+  )
     .then((response) => response.json())
     .then((data) => {
       // console.log(data);
@@ -41,6 +43,7 @@ function PastMeetings() {
             let fdate = date.toLocaleDateString("en-us", options);
             return (
               <MeetingCard
+                key={meeting.id}
                 title={meeting.title}
                 img={meeting.img}
                 date={fdate}
