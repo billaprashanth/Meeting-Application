@@ -7,7 +7,7 @@ function UpcomingMeeting() {
 
   useEffect(() => {
     fetch(
-      "https://meeting-application-cd694-default-rtdb.firebaseio.com/meeting-application.json"
+      "https://meeting-application-5a5c3-default-rtdb.firebaseio.com/meetings.json"
     )
       .then((response) => response.json())
       .then((data) => {

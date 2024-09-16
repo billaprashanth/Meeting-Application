@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import MeetingCard from "../components/MeetingCard";
 import { Link } from "react-router-dom";
 
-function Home() {
+const Home = ()=> {
   const [meetings, setMeetings] = useState([]);
   const [error, setError] = useState(null);
   useEffect(() => {
     fetch(
-      "https://meeting-application-cd694-default-rtdb.firebaseio.com/meeting-application.json"
+      "https://meeting-application-5a5c3-default-rtdb.firebaseio.com/meetings.json"
     )
       .then((response) => {
         if (!response.ok) {

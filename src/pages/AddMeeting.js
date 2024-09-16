@@ -28,11 +28,14 @@ function AddMeetings() {
       date: dateInput.current.value,
     };
     fetch(
-      "https://meeting-application-cd694-default-rtdb.firebaseio.com/meeting-application.json",
-      {
-        method: "post",
-        body: JSON.stringify(tempmeeting),
-      }
+      "https://meeting-application-5a5c3-default-rtdb.firebaseio.com/meetings.json",
+  {
+    method: "POST",
+    body: JSON.stringify(tempmeeting),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }
     )
       .then(() => {
         setLoadingStatus(false);
@@ -50,7 +53,7 @@ function AddMeetings() {
       <h1 className="heading">Add New Meetings</h1>
       <div className="input-links">
         <input type="text" ref={titleInput} placeholder="Enter Meeting Title" />
-        <input type="text" ref={imageInput} placeholder="Enter Meeting Image" />
+        <input type="text" ref={imageInput}  placeholder="Enter Meeting Image" />
         <input type="text" ref={linkInput} placeholder="Enter Meeting Link" />
         <input
           type="datetime-local"

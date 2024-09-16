@@ -3,9 +3,10 @@ import { useState } from "react";
 import MeetingCard from "../components/MeetingCard";
 import "../assets/css/App.css";
 function PastMeetings() {
+  
   const [meetings, setMeetings] = useState([]);
   fetch(
-    "https://meeting-application-cd694-default-rtdb.firebaseio.com/meeting-application.json"
+    "https://meeting-application-5a5c3-default-rtdb.firebaseio.com/meetings.json"
   )
     .then((response) => response.json())
     .then((data) => {
