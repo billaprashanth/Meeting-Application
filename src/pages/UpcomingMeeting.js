@@ -21,6 +21,7 @@ function UpcomingMeeting() {
           tempMeeting.push(meeting);
         }
         setMeetings(tempMeeting);
+        // console.log(tempMeeting);
       });
   }, []);
 
@@ -47,7 +48,7 @@ function UpcomingMeeting() {
               <MeetingCard
                 key={meeting.id}
                 title={meeting.title}
-                img={meeting.img}
+                img={meeting.img || "default"}
                 date={fdate}
                 link={meeting.link}
               />

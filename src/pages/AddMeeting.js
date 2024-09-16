@@ -27,6 +27,7 @@ function AddMeetings() {
       link: linkInput.current.value,
       date: dateInput.current.value,
     };
+    console.log(tempmeeting);
     fetch(
       "https://meeting-application-5a5c3-default-rtdb.firebaseio.com/meetings.json",
   {
@@ -41,6 +42,7 @@ function AddMeetings() {
         setLoadingStatus(false);
         setShowSuccessMessage(true);
         navigate("/upcoming-meetings");
+        console.log(tempmeeting);
       })
       .catch((error) => {
         console.error("Error adding meeting:", error);
@@ -53,7 +55,7 @@ function AddMeetings() {
       <h1 className="heading">Add New Meetings</h1>
       <div className="input-links">
         <input type="text" ref={titleInput} placeholder="Enter Meeting Title" />
-        <input type="text" ref={imageInput}  placeholder="Enter Meeting Image" />
+        {/* <input type="text" ref={imageInput}  placeholder="Enter Meeting Image" /> */}
         <input type="text" ref={linkInput} placeholder="Enter Meeting Link" />
         <input
           type="datetime-local"
